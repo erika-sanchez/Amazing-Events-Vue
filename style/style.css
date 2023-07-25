@@ -18,6 +18,9 @@
     border: 0; */
 }
 
+main{
+    min-height: 80vh !important;
+}
 .carousel-item img{
     height: 20rem !important;
     width: 100%;

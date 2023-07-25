@@ -9,7 +9,7 @@
     <title>Home</title>
 </head>
 <body>
-    <div>
+    <div id="app">
         <header>
             <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
                     <div class="container-fluid">
@@ -104,11 +104,11 @@
                 <button class="btn btn-outline-success col-3" type="submit">Search</button> -->
                 </form>
             </div>
-            <article>
-                <template v-if="finder">
-                    <div class="card shadow" style="width: 25rem;">
+            <article class="d-flex flex-wrap align-items-center justify-content-evenly col-11">
+                
+                    <div class="card shadow d-flex " style="width: 25rem;">
                         <img :src="finder.image" class="card-img-top" alt="Detail image">
-                        <div class="card-body bg-info-subtle">
+                        <div class="card-body bg-info-subtle ">
                             <h5>{{finder.name}}</h5>
                             <p class="card-text">{{finder.description}}</p>
                             <div class="accordion-item">
@@ -129,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-                </template>
+              
             </article>
         </main>
         <footer class="d-flex justify-content-evenly align-items-center">
