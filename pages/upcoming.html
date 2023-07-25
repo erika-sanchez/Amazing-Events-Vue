@@ -100,13 +100,17 @@
             </div>
         
             <section id="cajaTarjetas" class=" d-flex flex-wrap align-items-center justify-content-evenly col-11">
-                    <template v-if="filtrosCruzados.length > 0" v-for="event of filtrosCruzados">
+                <template v-if="filtrosCruzados.length > 0" v-for="event of filtrosCruzados">
                     <div class="card" style="width: 18rem;">
                         <img v-bind:src="event.image" class="card-img-top" alt="...">
                         <div class="card-body">
                         <h5 class="card-title">{{event.name}}</h5>
                         <p class="card-text">{{event.description}}</p>
-                        <a :href="'./assets/page/details.html?id='+ event._id" class="btn btn-primary button">Details</a>
+                        <p class="card-text text-center">{{event.date}}</p> 
+                        <div class="d-flex justify-content-between">
+                        <p class="card-text">${{event.price}}</p>
+                        <a v-bind:href="event.imageURL" class="btn btn-primary button">Details</a>
+                        </div>
                         </div>
                     </div>
                     </template>

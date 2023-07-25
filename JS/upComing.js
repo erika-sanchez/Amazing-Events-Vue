@@ -8,7 +8,7 @@ const options = {
             eventsUpComing: [],
             currentDate: "",
             categoriasUnicas: [],
-            filter:[],
+            /* filter:[], */
             categoriasSeleccionadas: [],
             inputValue: "",
             filtrosCruzados: [],
@@ -22,9 +22,9 @@ const options = {
             .then( data =>{
                 this.currentDate= data.currentDate;
                 this.eventsUpComing = data.events.filter(event => event.date > this.currentDate);
-                let categorias = this.events.map(event => event.category);
+                let categorias = this.eventsUpComing.map(event => event.category);
                 this.categoriasUnicas = Array.from(new Set(categorias));
-                this.filtrosCruzados = data.events;
+                this.filtrosCruzados = this.eventsUpComing;
 
             })
             .catch(err => console.error( err))
@@ -33,9 +33,12 @@ const options = {
     },
     computed: {
         filtrosCrossed(){
-            this.filtrosCruzados = this.eventsUpComing.filter(event=> {
-                return event.name.toLowerCase().includes(this.inputValue.toLowerCase()) && (this.categoriasSeleccionadas.includes(event.category) || this.categoriasSeleccionadas.length == 0)
-            }); 
+            return this.eventsUpComing.filter((event) => {
+                return (
+                    event.name.toLowerCase().includes(this.inputValue.toLowerCase()) &&
+                    (this.categoriasSeleccionadas.includes(event.category) || this.categoriasSeleccionadas.length === 0)
+                );
+            });
         },
     },
 

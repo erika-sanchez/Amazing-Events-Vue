@@ -23,9 +23,9 @@ createApp({
     .then ( data => {
         this.events = data.events
         this.parametro= location.search
-        this.params = new URLSearchParams(parametro)
-        this.nombreId = params.get('id')
-        this.findre = this.events.find( event => event._id == nombreId) 
+        this.params = new URLSearchParams(this.parametro)
+        this.nombreId = this.params.get('id')
+        this.finder = this.events.find( event => event._id == this.nombreId) 
 
     })
     .catch(error => {
