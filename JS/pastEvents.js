@@ -1,64 +1,50 @@
-import {imprimirCard, mensaje,mostrarCheckbox,arraychecked,filtrosCruzados} from "../modules/function.js";
+const { createApp } = Vue //toma la propiedad 
 
-let containerTarjetas = document.getElementById("cajaTarjetas")
-let inputSearch = document.getElementById('inputTypeSearch');
-let contenedorInputs = document.getElementById('contenedorInputs');
+//metodo (funcion dentro de un objeto) //creando la app
+const options = { 
+    //define y almacena los datos que el componente utilizará
+    data(){
+        return {
+            eventsPast: [],
+            currentDate: "",
+            categoriasUnicas: [],
+            /* filter:[], */
+            categoriasSeleccionadas: [],
+            inputValue: "",
+            filtrosCruzados: [],
 
-/* imprimirCard(pastEvents, containerTarjetas);
+        } /// propiedades reactivas  // pasando las opciones con las que quiero que se cree
+    }, ///metodo del objeto 
 
-console.log(data.currentDate, data.events);
- */
-//
-let events;
-let pastEvents;
-let currentDate;
+    created(){
+        fetch("https://mindhub-xj03.onrender.com/api/amazing")
+            .then( Response => Response.json())
+            .then( data =>{
+                this.currentDate= data.currentDate;
+                this.eventsPast = data.events.filter(event => event.date < this.currentDate);
+                let categorias = this.eventsPast.map(event => event.category);
+                this.categoriasUnicas = Array.from(new Set(categorias));
+                this.filtrosCruzados = this.eventsPast;
 
-fetch ("https://mindhub-xj03.onrender.com/api/amazing")
-.then(respuesta => respuesta.json())
-.then ( data => {
-        events= data.events; 
-        currentDate = data.currentDate;
-        pastEvents  = events.filter(event => event.date < currentDate);
-        let categorias = events.map(evento => evento.category);
-        let categoriasNoRepeat = new Set(categorias);
-        let categoriasUnicas = Array.from(categoriasNoRepeat);
-        mostrarCheckbox(categoriasUnicas, contenedorInputs);
-        imprimirCard(pastEvents, containerTarjetas)
-        let checkbox = document.querySelectorAll("input[type='checkbox']");
-        let arraycheckbox = Array.from(checkbox)
-        console.log(arraycheckbox);
+            })
+            .catch(err => console.error( err))
 
-        contenedorInputs.addEventListener("change", (e) => {
 
-            let listas = inputSearch.value.toLowerCase()
-            let checkFiltradas = arraychecked(arraycheckbox)
-            let filtrosarray = filtrosCruzados(pastEvents, listas, checkFiltradas)
-            console.log("Evento", filtrosarray);
-            containerTarjetas.innerHTML = ""
-            if (filtrosarray.length == 0){
-                mensaje(containerTarjetas)
-            }else{
-                imprimirCard(filtrosarray, containerTarjetas)
-            }
-        });
+    },
+    computed: {
+        filtrosCrossed(){
+            return this.eventsPast.filter((event) => {
+                return (
+                    event.name.toLowerCase().includes(this.inputValue.toLowerCase()) &&
+                    (this.categoriasSeleccionadas.includes(event.category) || this.categoriasSeleccionadas.length === 0)
+                );
+            });
+        },
+    },
 
-        inputSearch.addEventListener('input', searchInputInfo);
+}
+const app = createApp( options )
 
-        function searchInputInfo(e) {
-            let listas = inputSearch.value.toLowerCase()
-            let checkFiltradas = arraychecked(arraycheckbox)
-            let filtrosarray = filtrosCruzados(pastEvents, listas, checkFiltradas)
-            console.log("Evento", filtrosarray);
-            containerTarjetas.innerHTML = ""
-            if (filtrosarray.length == 0){
-                mensaje(containerTarjetas)
-            }else{
-                imprimirCard(filtrosarray, containerTarjetas)
-            }
-        }
-    })
-.catch((error)=>{
-    console.error("Error fetching data:",error);
-})
+ /// se le pasa como argumento un objeto 
 
-let categoriasSeleccionadas = []
+ .mount( '#app' ) ///un ID al app
