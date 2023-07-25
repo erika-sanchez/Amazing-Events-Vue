@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+.layout{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center;
+    padding: 0;
+    border: 0; */
+}
+
+.carousel-item img{
+    height: 20rem !important;
+    width: 100%;
+    object-fit: cover !important;
+}
