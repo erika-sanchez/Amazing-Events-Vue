@@ -86,7 +86,7 @@
                 <div class="d-lg-flex align-items-center gap-5 ms-2"> -->
             <div  class=" inputSearch d-flex align-items-start  col-12  flex-wrap">
                 <template v-if='categoriasUnicas.length > 0' v-for='category of categoriasUnicas'>
-                    <span v-cloak>{{filterCrossed}}</span>
+                    <span v-cloak>{{filtrosCrossed}}</span>
                     <div class="form-check form-check-inline">
                         <input class="border-check form-check-input" type="checkbox"
                             v-bind:id="category" v-bind:value="category" v-on:change="filtrosCruzados" v-model="categoriasSeleccionadas" />
@@ -96,7 +96,7 @@
                 <template v-else>
                     <h2>no results were found</h2>
                 </template>
-                <form class="d-flex container-fluid" role="search">
+                <form class="d-flex container-fluid col-3" role="search">
                     <input class="form-control me-2 " type="search" aria-label="Search" v-on:input="filtrosCruzados"
                             v-model="inputValue">
                 </form>
@@ -111,7 +111,11 @@
                         <div class="card-body">
                         <h5 class="card-title">{{event.name}}</h5>
                         <p class="card-text">{{event.description}}</p>
+                        <p class="card-text text-center">{{event.date}}</p> 
+                        <div class="d-flex justify-content-between">
+                        <p class="card-text">${{event.price}}</p>
                         <a v-bind:href=`./assets/pages/details.html?id=${event._id}` class="btn btn-primary button">Details</a>
+                        </div>
                         </div>
                     </div>
                     </template>

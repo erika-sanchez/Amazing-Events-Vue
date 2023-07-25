@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
  
+[v-cloak]{
+    display: none;
+}
 .layout{
     width: 100%;
     min-height: 100vh;
